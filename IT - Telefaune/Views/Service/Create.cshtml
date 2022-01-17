@@ -1,0 +1,32 @@
+﻿@model IT___Telefaune.Models.ServiceModel
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Créer un nouveau service</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="TypeService">Type de service</label>
+                        <input asp-for="TypeService" class="form-control" />
+                        <span asp-validation-for="TypeService" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <div class="col-8 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Enregistrer" />
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-dark" asp-action="Index">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

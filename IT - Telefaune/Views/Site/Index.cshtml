@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IT___Telefaune.Models.SiteModel>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Liste des sites</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Site" asp-action="Create" class="btn btn-primary">Ajouter un site</a>
+        </div>
+    </div>
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Utilisateurs
+                    </th>
+                    <th class="text-center">
+                        Nom du site
+                    </th>
+                    <th class="text-center">
+                        Ville du site
+                    </th>
+                    <th class="text-center">
+                        Service
+                    </th>
+                    <th class="text-center">
+                        Modification
+                    </th>
+                    <th class="text-center">
+                        Suppression
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var site in Model)
+                {
+                    <tr class="align-items-lg-center">
+                        <td class="text-center" width="20%"><a asp-controller="Test" asp-route-Id="" asp-action="Read">Consulter</a></td>
+                        <td class="text-center" width="20%">@site.Nom</td>
+                        <td class="text-center" width="15%">@site.Ville</td>
+                        <td class="text-center" width="15%">@site.TypeService</td>
+                        <td width="15%">
+                            <div class="col-7">
+                                <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
+                            </div>
+                        </td>
+                        <td class="text-center" width="15%">
+                            <div class="col-7 justify-content-md-center">
+                                <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <p>Aucun site n'a encore été enregistré...</p>
+    }
+</div>

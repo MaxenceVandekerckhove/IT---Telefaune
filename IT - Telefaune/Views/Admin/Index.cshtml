@@ -1,0 +1,54 @@
+﻿@model IEnumerable<IT___Telefaune.Models.AdminModel>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Liste des Admins</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Admin" asp-action="Create" class="btn btn-primary">Ajouter un Administrateur</a>
+        </div>
+    </div>
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Adresse Email
+                    </th>
+                    <th class="text-center">
+                        Modification
+                    </th>
+                    <th class="text-center">
+                        Suppression
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var admin in Model)
+                {
+                <tr class="align-items-lg-center">
+                    <td class="text-center" width="40%">@admin.Email</td>
+                    <td width="10%">
+                        <div class="col-7">
+                            <a asp-controller="Admin" asp-route-Id="@admin.AdminId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
+                        </div>
+                    </td>
+                    <td width="10%">
+                        <div class="col-7 justify-content-md-center">
+                            <a asp-controller="Admin" asp-route-Id="@admin.AdminId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <p>Aucun administrateur n'a encore été enregistré...</p>
+    }
+</div>

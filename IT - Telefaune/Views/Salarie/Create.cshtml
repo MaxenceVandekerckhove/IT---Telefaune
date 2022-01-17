@@ -1,0 +1,71 @@
+﻿@model IT___Telefaune.Models.SalarieModel
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Créer un nouveau salarié</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="Nom">Nom</label>
+                        <input asp-for="Nom" class="form-control" />
+                        <span asp-validation-for="Nom" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Prenom">Prénom</label>
+                        <input asp-for="Prenom" class="form-control" />
+                        <span asp-validation-for="Prenom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="TelephoneFixe">Téléphone fixe</label>
+                        <input asp-for="TelephoneFixe" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="TelephonePortable">Téléphone portable</label>
+                        <input asp-for="TelephonePortable" class="form-control" />
+                        <span asp-validation-for="TelephonePortable" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="Email">Adresse Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(m => m.NomSite,
+                            new SelectList(Enum.GetValues(typeof(ServiceList))),
+                            "Select Site")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(m => m.TypeService,
+                            new SelectList(Enum.GetValues(typeof(ServiceList))),
+                            "Select Service")
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <div class="col-8 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Enregistrer" />
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-dark" asp-action="Index">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,45 @@
+﻿@model IT___Telefaune.Models.AdminModel
+
+<form method="post" asp-action="Update">
+    <input asp-for="AdminId" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Modifier l'administrateur</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="Email">Adresse Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label asp-for="Password">Mot de passe</label>
+                        <input type="password" asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span asp-validation-for="ConfirmPasssword" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="ConfirmPasssword">Confirmation du Mot de passe</label>
+                        <input type="password" asp-for="ConfirmPasssword" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <div class="col-8 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Enregistrer" />
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-dark" asp-action="Index">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
