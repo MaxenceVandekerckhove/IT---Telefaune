@@ -1,23 +1,10 @@
-﻿@model IEnumerable<IT___Telefaune.Models.ServiceModel>
+﻿@model IEnumerable<IT___Telefaune.Models.SiteModel>
 
 <div class="container p-3">
     <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Liste des services</h2>
+        <div class="col-8">
+            <h2 class="text-primary">Liste des sites du service : @ViewBag.typeservice </h2>
         </div>
-        @if (ViewBag.sessionv == null)
-        {
-            <div class="col-6 text-right">
-                <button type="button" class="btn btn-primary mx-1" disabled>Ajouter un service</button>
-            </div>
-        }
-
-        @if (ViewBag.sessionv != null)
-        {
-            <div class="col-6 text-right">
-                <a asp-controller="Service" asp-action="Create" class="btn btn-primary">Ajouter un service</a>
-            </div>
-        }
     </div>
 
     @if (Model.Count() > 0)
@@ -26,13 +13,16 @@
             <thead>
                 <tr>
                     <th class="text-center">
-                        Salariés du service
+                        Utilisateurs
                     </th>
                     <th class="text-center">
-                        Sites du service
+                        Nom du site
                     </th>
                     <th class="text-center">
-                        Type de service
+                        Ville du site
+                    </th>
+                    <th class="text-center">
+                        Service
                     </th>
                     <th class="text-center">
                         Modification
@@ -43,12 +33,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var service in Model)
+                @foreach (var site in Model)
                 {
                 <tr class="align-items-lg-center">
-                    <td class="text-center" width="20%"><a asp-controller="Service" asp-route-Id="@service.ServiceId" asp-action="ConsultUsers">Consulter</a></td>
-                    <td class="text-center" width="15%"><a asp-controller="Service" asp-route-Id="@service.ServiceId" asp-action="ConsultSites">Consulter</a></td>
-                    <td class="text-center" width="30%">@service.TypeService</td>
+                    <td class="text-center" width="20%"><a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="ConsultUsers">Consulter</a></td>
+                    <td class="text-center" width="20%">@site.NomSite</td>
+                    <td class="text-center" width="15%">@site.Ville</td>
+                    <td class="text-center" width="15%">@site.TypeServiceWrong</td>
                     @if (ViewBag.sessionv == null)
                     {
                         <td width="15%">
@@ -68,12 +59,12 @@
                     {
                         <td width="15%">
                             <div class="col-7">
-                                <a asp-controller="Service" asp-route-Id="@service.ServiceId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
+                                <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
                             </div>
                         </td>
                         <td class="text-center" width="15%">
                             <div class="col-7 justify-content-md-center">
-                                <a asp-controller="Service" asp-route-Id="@service.ServiceId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
+                                <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
                             </div>
                         </td>
                     }
@@ -85,6 +76,6 @@
     }
     else
     {
-        <p>Aucun service n'a encore été enregistré...</p>
+        <p>Aucun site n'a encore été enregistré...</p>
     }
 </div>

@@ -5,9 +5,20 @@
         <div class="col-6">
             <h2 class="text-primary">Liste des salariés</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-controller="Salarie" asp-action="Create" class="btn btn-primary">Ajouter un salarié</a>
-        </div>
+        @if (ViewBag.sessionv == null)
+        {
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-primary mx-1" disabled>Ajouter un salarié</button>
+            </div>
+        }
+
+        @if (ViewBag.sessionv != null)
+        {
+            <div class="col-6 text-right">
+                <a asp-controller="Salarie" asp-action="Create" class="btn btn-primary">Ajouter un salarié</a>
+            </div>
+        }
+
     </div>
 
     @if (Model.Count() > 0)
@@ -42,21 +53,40 @@
                 @foreach (var salarie in Model)
                 {
                 <tr class="align-items-lg-center">
-                    <td class="text-center" width="20%"><a asp-controller="Test" asp-route-Id="" asp-action="Read">Consulter</a></td>
+                    <td class="text-center" width="20%"><a asp-controller="Salarie" asp-route-Id="@salarie.SalarieId" asp-action="ConsultForm">Consulter</a></td>
                     <td class="text-center" width="20%">@salarie.Nom</td>
                     <td class="text-center" width="15%">@salarie.Prenom</td>
-                    <td class="text-center" width="15%">@salarie.TypeService</td>
-                    <td class="text-center" width="15%">@salarie.NomSite</td>
-                    <td width="15%">
-                        <div class="col-7">
-                            <a asp-controller="Salarie" asp-route-Id="@salarie.SalarieId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
-                        </div>
-                    </td>
-                    <td class="text-center" width="15%">
-                        <div class="col-7 justify-content-md-center">
-                            <a asp-controller="Salarie" asp-route-Id="@salarie.SalarieId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
-                        </div>
-                    </td>
+                    <td class="text-center" width="15%">@salarie.TypeServiceWrong</td>
+                    <td class="text-center" width="15%">@salarie.NomSiteWrong</td>
+
+                    @if (ViewBag.sessionv == null)
+                    {
+                        <td width="15%">
+                            <div class="col-7">
+                                <button type="button" class="btn btn-primary mx-1" disabled>Editer</button>
+                            </div>
+                        </td>
+                        <td class="text-center" width="15%">
+                            <div class="col-7 justify-content-md-center">
+                                <button type="button" class="btn btn-danger mx-1" disabled>Supprimer</button>
+                            </div>
+                        </td>
+                    }
+
+
+                    @if (ViewBag.sessionv != null)
+                    {
+                        <td width="15%">
+                            <div class="col-7">
+                                <a asp-controller="Salarie" asp-route-Id="@salarie.SalarieId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
+                            </div>
+                        </td>
+                        <td class="text-center" width="15%">
+                            <div class="col-7 justify-content-md-center">
+                                <a asp-controller="Salarie" asp-route-Id="@salarie.SalarieId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
+                            </div>
+                        </td>
+                    }
                 </tr>
                 }
             </tbody>

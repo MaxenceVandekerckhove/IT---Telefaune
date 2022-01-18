@@ -1,5 +1,8 @@
 ﻿using IT___Telefaune.Models;
+using IT___Telefaune.Models.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,14 +16,28 @@ namespace IT___Telefaune.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private readonly ApplicationDbContext _db;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string SearchString)
         {
-            return View();
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
+
+            if (SearchString != "" && SearchString != null)
+            {
+                var users = _db.Salarie.Where(u => u.Nom.Contains(SearchString)).ToList();
+                return View(users);
+
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         public IActionResult Privacy()

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Cryptography;
 using System.Web;
+using Microsoft.AspNetCore.Session;
+
+
 
 namespace IT___Telefaune.Controllers
 {
@@ -25,6 +28,7 @@ namespace IT___Telefaune.Controllers
         public IActionResult Index()
         {
             IEnumerable<AdminModel> objList = _db.Admin;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
             return View(objList);
         }
@@ -32,6 +36,7 @@ namespace IT___Telefaune.Controllers
         [HttpPost]
         public IActionResult Create(AdminModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             var check = _db.Admin.FirstOrDefault(s => s.Email == obj.Email);
             if (ModelState.IsValid && check == null)
             {
@@ -49,12 +54,14 @@ namespace IT___Telefaune.Controllers
         public IActionResult Create()
         {
             IEnumerable<AdminModel> serviceList = _db.Admin;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
             return View();
         }
 
         public IActionResult DeleteGet(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -83,6 +90,7 @@ namespace IT___Telefaune.Controllers
 
         public IActionResult Update(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -98,6 +106,7 @@ namespace IT___Telefaune.Controllers
         [HttpPost]
         public IActionResult Update(AdminModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (ModelState.IsValid)
             {
                 _db.Admin.Update(obj);
@@ -111,6 +120,7 @@ namespace IT___Telefaune.Controllers
         }
         public IActionResult Login()
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             return View();
         }
 
@@ -124,6 +134,11 @@ namespace IT___Telefaune.Controllers
                 var data = _db.Admin.Where(s => s.Email.Equals(email) && s.Password.Equals(password));
                 if (data.Count() > 0)
                 {
+
+                    //Session["Email"] = data.FirstOrDefault().Email;
+                    //data.FirstOrDefault().Email = Session["Email"];
+                    //HttpContext.Session.SetString(SessionKeyEmail, data.FirstOrDefault().Email);
+                    HttpContext.Session.SetString("Test", data.FirstOrDefault().Email);
                     return Redirect("/Home/Index");
                 }
                 else
@@ -138,6 +153,7 @@ namespace IT___Telefaune.Controllers
 
         public ActionResult Logout()
         {
+            HttpContext.Session.Remove("Test");
             return Redirect("/Home/Index");
         }
     }

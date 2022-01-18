@@ -1,5 +1,6 @@
 ﻿using IT___Telefaune.Models;
 using IT___Telefaune.Models.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace IT___Telefaune.Controllers
         public IActionResult Index()
         {
             IEnumerable<SalarieModel> objList = _db.Salarie;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
             return View(objList);
         }
@@ -27,6 +29,7 @@ namespace IT___Telefaune.Controllers
         [HttpPost]
         public IActionResult Create(SalarieModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             ModelState.Remove("TelephoneFixe");
             if (ModelState.IsValid)
             {
@@ -43,12 +46,14 @@ namespace IT___Telefaune.Controllers
         public IActionResult Create()
         {
             IEnumerable<SalarieModel> serviceList = _db.Salarie;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
             return View();
         }
 
         public IActionResult DeleteGet(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -77,6 +82,7 @@ namespace IT___Telefaune.Controllers
 
         public IActionResult Update(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -92,6 +98,7 @@ namespace IT___Telefaune.Controllers
         [HttpPost]
         public IActionResult Update(SalarieModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (ModelState.IsValid)
             {
                 _db.Salarie.Update(obj);
@@ -102,6 +109,20 @@ namespace IT___Telefaune.Controllers
             {
                 return View();
             }
+        }
+
+        public IActionResult ConsultForm(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Salarie.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
         }
     }
 }

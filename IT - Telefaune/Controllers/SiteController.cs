@@ -1,5 +1,6 @@
 ﻿using IT___Telefaune.Models;
 using IT___Telefaune.Models.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,15 +24,19 @@ namespace IT___Telefaune.Controllers
         public IActionResult Index()
         {
             IEnumerable<SiteModel> objList = _db.Site;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
-            return View(objList);
+            return View (objList);
         }
 
         [HttpPost]
         public IActionResult Create(SiteModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (ModelState.IsValid)
             {
+                var findService = _db.Service.Include(obj.TypeServiceWrong);
+
                 _db.Site.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -42,22 +47,16 @@ namespace IT___Telefaune.Controllers
             }
         }
 
-        public IEnumerable<ServiceModel> displaydata { get; set; }
-
-        public async Task OnGet()
-        {
-            displaydata = await _db.Service.ToListAsync();
-        }
-
         public IActionResult Create()
         {
-            IEnumerable<ServiceModel> serviceList = _db.Service;
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
 
             return View();
         }
 
         public IActionResult DeleteGet(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -86,6 +85,7 @@ namespace IT___Telefaune.Controllers
 
         public IActionResult Update(int? id)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -101,6 +101,7 @@ namespace IT___Telefaune.Controllers
         [HttpPost]
         public IActionResult Update(SiteModel obj)
         {
+            ViewBag.sessionv = HttpContext.Session.GetString("Test");
             if (ModelState.IsValid)
             {
                 _db.Site.Update(obj);
@@ -111,7 +112,22 @@ namespace IT___Telefaune.Controllers
             {
                 return View();
             }
-        }
-    }
 
+        }
+        public IActionResult ConsultUsers(int? id)
+        {
+            if(id == null || id==0)
+            {
+                return NotFound();
+            }
+            var users = _db.Salarie.Where(u => u.SiteId == id);
+            var idSite = _db.Site.Find(id);
+            string FindNomSite = idSite.NomSite;
+            ViewBag.sitename = FindNomSite;
+
+            return View(users.ToList());
+
+        }
+
+    }
 }

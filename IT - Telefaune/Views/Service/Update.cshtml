@@ -2,17 +2,18 @@
 
 @if (ViewBag.sessionv != null)
 {
-    <form method="post" asp-action="Create">
+    <form method="post" asp-action="Update">
+        <input asp-for="ServiceId" hidden />
         <div class="border p-3">
             <div class="form-group row">
-                <h2 class="text-black-50 pl-3">Créer un nouveau service</h2>
+                <h2 class="text-black-50 pl-3">Modifier le service</h2>
             </div>
 
             <div class="row">
                 <div class="col-12">
                     <div class="form-group row">
                         <div class="col">
-                            <label asp-for="TypeService">Type de service</label>
+                            <label asp-for="TypeService"> Type de service:</label>
                             <input asp-for="TypeService" class="form-control" />
                             <span asp-validation-for="TypeService" class="text-danger"></span>
                         </div>

@@ -5,9 +5,19 @@
         <div class="col-6">
             <h2 class="text-primary">Liste des sites</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-controller="Site" asp-action="Create" class="btn btn-primary">Ajouter un site</a>
-        </div>
+        @if (ViewBag.sessionv == null)
+        {
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-primary mx-1" disabled>Ajouter un site</button>
+            </div>
+        }
+
+        @if (ViewBag.sessionv != null)
+        {
+            <div class="col-6 text-right">
+                <a asp-controller="Site" asp-action="Create" class="btn btn-primary">Ajouter un site</a>
+            </div>
+        }
     </div>
 
     @if (Model.Count() > 0)
@@ -38,11 +48,28 @@
             <tbody>
                 @foreach (var site in Model)
                 {
-                    <tr class="align-items-lg-center">
-                        <td class="text-center" width="20%"><a asp-controller="Test" asp-route-Id="" asp-action="Read">Consulter</a></td>
-                        <td class="text-center" width="20%">@site.Nom</td>
-                        <td class="text-center" width="15%">@site.Ville</td>
-                        <td class="text-center" width="15%">@site.TypeService</td>
+                <tr class="align-items-lg-center">
+                    <td class="text-center" width="20%"><a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="ConsultUsers">Consulter</a></td>
+                    <td class="text-center" width="20%">@site.NomSite</td>
+                    <td class="text-center" width="15%">@site.Ville</td>
+                    <td class="text-center" width="15%">@site.TypeServiceWrong</td>
+                    @if (ViewBag.sessionv == null)
+                    {
+                        <td width="15%">
+                            <div class="col-7">
+                                <button type="button" class="btn btn-primary mx-1" disabled>Editer</button>
+                            </div>
+                        </td>
+                        <td class="text-center" width="15%">
+                            <div class="col-7 justify-content-md-center">
+                                <button type="button" class="btn btn-danger mx-1" disabled>Supprimer</button>
+                            </div>
+                        </td>
+                    }
+
+
+                    @if (ViewBag.sessionv != null)
+                    {
                         <td width="15%">
                             <div class="col-7">
                                 <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="Update" class="btn btn-primary mx-2">Editer</a>
@@ -53,7 +80,8 @@
                                 <a asp-controller="Site" asp-route-Id="@site.SiteId" asp-action="DeleteGet" class="btn btn-danger mx-1">Supprimer</a>
                             </div>
                         </td>
-                    </tr>
+                    }
+                </tr>
                 }
             </tbody>
         </table>

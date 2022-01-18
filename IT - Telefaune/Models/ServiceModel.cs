@@ -13,5 +13,9 @@ namespace IT___Telefaune.Models
         public int ServiceId { get; set; }
         [DisplayName("Type de Service")][Required]
         public string TypeService { get; set; }
+
+
+        public ICollection<SiteModel> Site { get; set; }
+        public ICollection<SalarieModel> Salarie { get; set; }
     }
 }

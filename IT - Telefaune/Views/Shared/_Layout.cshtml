@@ -27,12 +27,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Listes des services</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Lites des administrateurs</a>
-                        </li>
+                        @if (ViewBag.sessionv != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Liste des administrateurs</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <a class="nav-link text-dark border" asp-area="" asp-controller="Admin" asp-action="Login">Login</a>
+                @if (ViewBag.sessionv != null)
+                {
+                    <a class="nav-link text-dark border ml-3" asp-area="" asp-controller="Admin" asp-action="Logout">Logout</a>
+                }
             </div>
         </nav>
     </header>

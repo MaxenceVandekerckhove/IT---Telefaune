@@ -1,5 +1,14 @@
 ﻿@model IT___Telefaune.Models.AdminModel
 
+
+@if (ViewBag.sessionv != null)
+{
+<p class="text-center text-success">
+    Vous êtes déjà connecté en tant que: @ViewBag.sessionv
+</p>
+ }
+
+
 <div class="container border justify-content-xl-center p-4">
     <form method="post" asp-action="LoginPost">
         <div class="form-group row">
